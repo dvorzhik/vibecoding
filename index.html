@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DVORZHIK - ВАЙБКОДИНГ</title>
+  <meta name="description" content="Вайбкодинг Александра Дворжицкого: Chess PGN@GIF, SunsetBot, Yamometer и другие проекты." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --card-bg: #f8fafc;
+      --card-border: #e2e8f0;
+      --accent: #ca8a04;
+      --accent-hover: #a16207;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --link: #0284c7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--accent);
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .top-title-sec {
+      padding: 35px 0 20px;
+      text-align: center;
+    }
+
+    .top-title-sec h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: var(--text-main);
+      text-transform: uppercase;
+    }
+
+    .section-block {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 28px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 32px;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .section-img-wrap {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s;
+    }
+
+    .section-content h2 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: var(--text-main);
+    }
+
+    /* Заголовок-ссылка на активного бота */
+    .section-content h2 a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .section-content h2 a:hover {
+      color: var(--accent-hover);
+      border-bottom-color: var(--accent-hover);
+    }
+
+    /* Бейдж статуса бота */
+    .bot-status {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    .bot-status.on {
+      color: #15803d;
+      background: #dcfce7;
+      border: 1px solid #86efac;
+    }
+
+    .bot-status.off {
+      color: #64748b;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+    }
+
+    .section-content p {
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-size: 1.02rem;
+    }
+
+    .section-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-content ul {
+      margin: 0 0 12px 0;
+      padding-left: 20px;
+      color: var(--text-muted);
+      font-size: 1.02rem;
+    }
+
+    .section-content li {
+      margin-bottom: 6px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin: 10px 0 40px;
+      font-weight: 600;
+    }
+
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 35px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 820px) {
+      .section-block {
+        grid-template-columns: 1fr;
+        padding: 20px;
+        gap: 18px;
+      }
+      .section-img-wrap {
+        max-width: 360px;
+        margin: 0 auto;
+      }
+      .top-title-sec h1 {
+        font-size: 1.6rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 14px;
+      }
+      .top-title-sec h1 {
+        font-size: 1.35rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="container">
+
+    <!-- Заголовок -->
+    <div class="top-title-sec">
+      <h1>DVORZHIK - ВАЙБКОДИНГ</h1>
+    </div>
+
+    <!-- Chess PGN@GIF -->
+    <section class="section-block">
+      <div class="section-img-wrap">
+        <img src="images/chess_pgn_gif.jpg" alt="Chess PGN@GIF" />
+      </div>
+      <div class="section-content">
+        <h2>Chess PGN@GIF <span class="bot-status off">отключен</span></h2>
+        <p>Самый первый телеграм-бот я написал для шахматистов.<br>Он превращает текст шахматной партии в формате PGN в видеофайл (при этом в отличие от других подобных умел показывать и варианты с анализом).<br>В настоящее время бот отключен.</p>
+      </div>
+    </section>
+
+    <!-- SunsetBot -->
+    <section class="section-block">
+      <div class="section-img-wrap">
+        <img src="images/Sunset_Bot.jpg" alt="SunsetBot" />
+      </div>
+      <div class="section-content">
+        <h2>SunsetBot <span class="bot-status off">отключен</span></h2>
+        <p>Второй телеграм-бот — некоторое «гадание» на русской поэтической классике.<br>Вы даёте боту слово, он выдаёт в ответ фото с закатом (это мои фото) и стихи (это хорошие стихи, не мои :-)).<br>В настоящее время бот отключен.</p>
+      </div>
+    </section>
+
+    <!-- Yamometer -->
+    <section class="section-block">
+      <div class="section-img-wrap">
+        <img src="images/Yamometer.jpg" alt="Yamometer" />
+      </div>
+      <div class="section-content">
+        <h2><a href="https://t.me/yamometer_bot" target="_blank" rel="noopener noreferrer">Yamometer</a> <span class="bot-status on">активен</span></h2>
+        <p>Море сегодня ласковое или включило режим стиральной машины? 🌊 Yamometer мониторит пляжи по всему Израилю, чтобы спасти ваши планы на отдых:</p>
+        <ul>
+          <li>🌊 <strong>Волны и вода:</strong> узнайте всё заранее (без неловких проб воды пальцем ноги).</li>
+          <li>🌡 <strong>Погода и жара:</strong> поймите сразу — вы сегодня красиво загорите или просто расплавитесь.</li>
+          <li>📹 <strong>Веб-камеры:</strong> живая картинка с побережья для закоренелых скептиков.</li>
+          <li>⏰ <strong>Авто-сводка:</strong> свежий морской отчёт прямо к утреннему кофе.</li>
+        </ul>
+        <p>Выбирайте свой город и ныряйте! 🏄‍♂️</p>
+      </div>
+    </section>
+
+    <!-- ZenReader - Instant View -->
+    <section class="section-block">
+      <div class="section-img-wrap">
+        <img src="images/ZenReader.jpg" alt="ZenReader - Instant View" />
+      </div>
+      <div class="section-content">
+        <h2><a href="https://t.me/zenreader_bot" target="_blank" rel="noopener noreferrer">ZenReader - Instant View</a> <span class="bot-status on">активен</span></h2>
+        <ul>
+          <li>📖 <strong>Универсальный Instant View для любого сайта.</strong> Забирает чистый текст и картинки с новостных ресурсов, Хабра, медиа или постов из соцсетей и мгновенно превращает в удобный режим быстрого чтения.</li>
+          <li>🔓 <strong>Обход пейволов и рекламных преград.</strong> Читает материалы сквозь таймеры, назойливые баннеры и лимиты просмотров (Medium, Substack и другие онлайн-издания).</li>
+          <li>✂️ <strong>Очистка ссылок от цифрового мусора.</strong> Срезает метки слежки (<code>utm_*</code>, <code>fbclid</code>, <code>si</code>, <code>igsh</code>), оставляя компактный и аккуратный адрес первоисточника.</li>
+          <li>🌍 <strong>Перевод в один клик.</strong> Если статья на иностранном языке — быстро переводит заголовок и весь текст с сохранением структуры и иллюстраций.</li>
+          <li>⚡️ <strong>Инлайн-режим в чатах.</strong> Можно набрать <a href="https://t.me/zenreader_bot" target="_blank" rel="noopener noreferrer">@zenreader_bot</a> прямо в диалоге с другом или коллегой и отправить ему чистую статью, не пугая простыней трекеров.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Yuri Vizbor AI bot -->
+    <section class="section-block">
+      <div class="section-img-wrap">
+        <img src="images/vizbor.png" alt="Yuri Vizbor AI bot" />
+      </div>
+      <div class="section-content">
+        <h2><a href="https://vizborbot-j9kyvder.manus.space/" target="_blank" rel="noopener noreferrer">Yuri Vizbor AI bot</a> <span class="bot-status on">активен</span></h2>
+        <p>«Виртуальный Визбор» — диалоговый проект, бережно воссоздающий язык, интонации и эстетику Юрия Визбора.</p>
+        <p><strong>Основа:</strong> модель обучена исключительно на текстах песен, прозе, расшифровках интервью и личных дневниках автора.</p>
+        <p><strong>Главный принцип:</strong> боту категорически запрещено сочинять от себя или рассуждать на темы, чуждые миру Визбора. Он не имитирует живого человека, а говорит строго через призму подлинного наследия барда.</p>
+        <p><strong>Для чего:</strong> душевный разговор о горах, дружбе, сомнениях и жизни, поиск любимых строк и погружение в творчество Юрия Иосифовича.</p>
+        <p style="margin-top: 14px;"><strong>Телеграм-бот:</strong> <a href="https://t.me/vizbor_bot" target="_blank" rel="noopener noreferrer">https://t.me/vizbor_bot</a></p>
+      </div>
+    </section>
+
+    <a class="back-link" href="../index.html">← Назад к проектам</a>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© Aleksandr Dvorzhitckii • Vibecoding</p>
+    </div>
+  </footer>
+
+</body>
+</html>
