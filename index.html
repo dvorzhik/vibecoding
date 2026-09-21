@@ -103,6 +103,12 @@
       color: var(--text-main);
     }
 
+    /* Колонка контента — grid-item: без min-width: 0 колонка `1fr` не может
+       сжаться ниже min-content заголовка и плашки выезжают за край карточки */
+    .section-content {
+      min-width: 0;
+    }
+
     /* Заголовок-ссылка на активного бота */
     .section-content h2 a {
       color: var(--accent);
@@ -122,7 +128,9 @@
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.4px;
-      text-transform: uppercase;
+      /* Плашки пишем в том же регистре, как в разметке: «Telegram-bot»,
+         «Android-приложение», а не капсом из-за text-transform родителя */
+      text-transform: none;
       padding: 3px 10px;
       border-radius: 999px;
       margin-left: 10px;
@@ -139,6 +147,105 @@
       color: #64748b;
       background: #f1f5f9;
       border: 1px solid #e2e8f0;
+    }
+
+    /* Плашка «Telegram-bot» — голубая */
+    .bot-status.telegram {
+      color: #0369a1;
+      background: #e0f2fe;
+      border: 1px solid #7dd3fc;
+    }
+
+    /* Плашка «веб-приложение» — бежевая во всех карточках */
+    .bot-status.web {
+      color: #854d0e;
+      background: #fef3c7;
+      border: 1px solid #fcd34d;
+    }
+
+    /* Плашка «Android-приложение» — бледно-зелёная, как «активен» */
+    .bot-status.android {
+      color: #15803d;
+      background: #dcfce7;
+      border: 1px solid #86efac;
+    }
+
+    /* Строка заголовка: слева название, справа блок плашек.
+       Блок плашек — flex-контейнер, поэтому его ширина равна сумме
+       плашек и правый край всегда совпадает у всех карточек. */
+    .section-content h2 {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .h2-badges {
+      margin-left: auto;
+      padding-left: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      /* Не даём блоку плашек раздувать заголовок: иначе на узких экранах
+         минимум содержимого упирается в плашки и они уезжают за край */
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .h2-badges .bot-status {
+      margin-left: 0;
+    }
+
+    /* Заголовок — flex-контейнер: сбрасываем min-width: auto у его
+       содержимого, чтобы строка могла ужиматься и переноситься */
+    .section-content h2 > * {
+      min-width: 0;
+    }
+
+    /* Плашки с float: right внутри h2 не создают BFC, а `.section-block`
+       выкладывает контент гридом — поэтому сбрасываем обтекание явно */
+    .section-content p,
+    .section-content ul,
+    .section-content .app-badges {
+      clear: both;
+    }
+
+    /* Кнопки-ссылки на приложение и бота внизу секции */
+    .app-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .app-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+
+    .app-badge:hover,
+    .app-badge:focus-visible {
+      color: var(--accent-hover);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(202, 138, 4, 0.18);
+    }
+
+    .app-badge__icon {
+      font-size: 1.05rem;
     }
 
     .section-content p {
@@ -248,6 +355,14 @@
         max-width: 360px;
         margin: 0 auto;
       }
+      /* На узких экранах заголовки длинные: плашки уводим на отдельную
+         строку и прижимаем вправо, иначе они обрезаются за краем карточки */
+      .h2-badges {
+        flex-basis: 100%;
+        margin-left: 0;
+        padding-left: 0;
+        padding-top: 8px;
+      }
       .top-title-sec h1 {
         font-size: 1.6rem;
       }
@@ -278,7 +393,7 @@
         <img src="images/drawstory.png" alt="DrawStory" />
       </div>
       <div class="section-content">
-        <h2><a href="https://drawstory.dvorzhik.site/about" target="_blank" rel="noopener noreferrer">DrawStory</a> <span class="bot-status on">веб-приложение</span></h2>
+        <h2><a href="https://drawstory.dvorzhik.site/about" target="_blank" rel="noopener noreferrer">DrawStory</a><span class="h2-badges"><span class="bot-status web">веб-приложение</span><span class="bot-status on">активен</span></span></h2>
         <p>DrawStory («Сказка по рисунку») — сервис, который превращает детские наброски в персональные вечерние аудиоистории.</p>
         <p><strong>Как это работает:</strong></p>
         <ul>
@@ -297,7 +412,7 @@
         <img src="images/GP.png" alt="GeminiPoint" />
       </div>
       <div class="section-content">
-        <h2><a href="https://geminipoint.dvorzhik.site/" target="_blank" rel="noopener noreferrer">GeminiPoint</a> <span class="bot-status on">веб-приложение</span></h2>
+        <h2><a href="https://geminipoint.dvorzhik.site/" target="_blank" rel="noopener noreferrer">GeminiPoint</a><span class="h2-badges"><span class="bot-status web">веб-приложение</span><span class="bot-status on">активен</span></span></h2>
         <p>GeminiPoint — веб-приложение, которое делает работу с нейросетью Gemini удобной и наглядной прямо в браузере.</p>
         <ul>
           <li>💬 <strong>Диалог с ИИ:</strong> задавайте вопросы и получайте развёрнутые ответы в привычном чат-интерфейсе.</li>
@@ -315,7 +430,7 @@
         <img src="images/personal_sky.jpg" alt="Personal Sky - Личный небосвод" />
       </div>
       <div class="section-content">
-        <h2><a href="https://www.dvorzhik.ru/personal-sky/">Personal Sky - Личный небосвод</a> <span class="bot-status on">Android-приложение</span></h2>
+        <h2><a href="https://www.dvorzhik.ru/personal-sky/">Personal Sky - Личный небосвод</a><span class="h2-badges"><span class="bot-status android">Android-приложение</span></span></h2>
         <p><strong>Таков путь — превращай привычки в звёзды</strong></p>
         <p>Устали от трекеров, которые давят чувством вины и сгорающими сериями?</p>
         <p>В приложении «Personal Sky» ни один шаг не пропадает. Выбирайте цель и длину спринта: каждый выполненный день зажигает звезду, складываясь в реальное созвездие на глубоком чёрном AMOLED-небосводе. А пропущенный день не ломает прогресс, оставляя мягкий след светящейся туманности.</p>
@@ -335,7 +450,7 @@
         <img src="images/vizbor.png" alt="Yuri Vizbor AI bot" />
       </div>
       <div class="section-content">
-        <h2><a href="https://vizborbot-j9kyvder.manus.space/" target="_blank" rel="noopener noreferrer">Yuri Vizbor AI bot</a> <span class="bot-status on">активен</span></h2>
+        <h2><a href="https://vizborbot-j9kyvder.manus.space/" target="_blank" rel="noopener noreferrer">Yuri Vizbor AI bot</a><span class="h2-badges"><span class="bot-status web">веб-приложение</span><span class="bot-status telegram">Telegram-bot</span><span class="bot-status on">активен</span></span></h2>
         <p>«Виртуальный Визбор» — диалоговый проект, бережно воссоздающий язык, интонации и эстетику Юрия Визбора.</p>
         <p><strong>Основа:</strong> модель обучена исключительно на текстах песен, прозе, расшифровках интервью и личных дневниках автора.</p>
         <p><strong>Главный принцип:</strong> боту категорически запрещено сочинять от себя или рассуждать на темы, чуждые миру Визбора. Он не имитирует живого человека, а говорит строго через призму подлинного наследия барда.</p>
@@ -350,7 +465,7 @@
         <img src="images/currency.png" alt="Конвертер валют" />
       </div>
       <div class="section-content">
-        <h2>Конвертер валют</h2>
+        <h2>Конвертер валют<span class="h2-badges"><span class="bot-status on">Android-приложение</span></span></h2>
         <p>Первое мобильное приложение, которое я навайбкодил, — это конвертер валют. Мне нужно было на чем-то тренироваться, а платить за существующие не хотелось. Реклама в бесплатных тоже раздражала 🙂<br>Поэтому получилось простенько, но оно работает — и это было самое важное!</p>
       </div>
     </section>
@@ -358,10 +473,10 @@
     <!-- ZenReader - Instant View -->
     <section class="section-block">
       <div class="section-img-wrap">
-        <img src="images/ZenReader.jpg" alt="ZenReader - Instant View" />
+        <img src="images/ZenReader.jpg" alt="ZenReader" />
       </div>
       <div class="section-content">
-        <h2><a href="https://t.me/zenreader_bot" target="_blank" rel="noopener noreferrer">ZenReader - Instant View</a> <span class="bot-status on">активен</span></h2>
+        <h2><a href="https://t.me/zenreader_bot" target="_blank" rel="noopener noreferrer">ZenReader</a><span class="h2-badges"><span class="bot-status web">веб-приложение</span><span class="bot-status telegram">Telegram-bot</span><span class="bot-status on">активен</span></span></h2>
         <ul>
           <li>📖 <strong>Универсальный Instant View для любого сайта.</strong> Забирает чистый текст и картинки с новостных ресурсов, Хабра, медиа или постов из соцсетей и мгновенно превращает в удобный режим быстрого чтения.</li>
           <li>🔓 <strong>Обход пейволов и рекламных преград.</strong> Читает материалы сквозь таймеры, назойливые баннеры и лимиты просмотров (Medium, Substack и другие онлайн-издания).</li>
@@ -369,6 +484,16 @@
           <li>🌍 <strong>Перевод в один клик.</strong> Если статья на иностранном языке — быстро переводит заголовок и весь текст с сохранением структуры и иллюстраций.</li>
           <li>⚡️ <strong>Инлайн-режим в чатах.</strong> Можно набрать <a href="https://t.me/zenreader_bot" target="_blank" rel="noopener noreferrer">@zenreader_bot</a> прямо в диалоге с другом или коллегой и отправить ему чистую статью, не пугая простыней трекеров.</li>
         </ul>
+        <div class="app-badges">
+          <a class="app-badge" href="https://zenread.duckdns.org" target="_blank" rel="noopener noreferrer">
+            <span class="app-badge__icon" aria-hidden="true">🌐</span>
+            <span>Открыть веб-приложение</span>
+          </a>
+          <a class="app-badge" href="https://t.me/zenreader_bot" target="_blank" rel="noopener noreferrer">
+            <span class="app-badge__icon" aria-hidden="true">✈️</span>
+            <span>Открыть Telegram-bot</span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -378,7 +503,7 @@
         <img src="images/Yamometer.jpg" alt="Yamometer" />
       </div>
       <div class="section-content">
-        <h2><a href="https://t.me/yamometer_bot" target="_blank" rel="noopener noreferrer">Yamometer</a> <span class="bot-status on">активен</span></h2>
+        <h2><a href="https://t.me/yamometer_bot" target="_blank" rel="noopener noreferrer">Yamometer</a><span class="h2-badges"><span class="bot-status telegram">Telegram-bot</span><span class="bot-status on">активен</span></span></h2>
         <p>Море сегодня ласковое или включило режим стиральной машины? 🌊 Yamometer мониторит пляжи по всему Израилю, чтобы спасти ваши планы на отдых:</p>
         <ul>
           <li>🌊 <strong>Волны и вода:</strong> узнайте всё заранее (без неловких проб воды пальцем ноги).</li>
@@ -396,7 +521,7 @@
         <img src="images/Sunset_Bot.jpg" alt="SunsetBot" />
       </div>
       <div class="section-content">
-        <h2>SunsetBot <span class="bot-status off">отключен</span></h2>
+        <h2>SunsetBot<span class="h2-badges"><span class="bot-status telegram">Telegram-bot</span><span class="bot-status off">отключен</span></span></h2>
         <p>Второй телеграм-бот — некоторое «гадание» на русской поэтической классике.<br>Вы даёте боту слово, он выдаёт в ответ фото с закатом (это мои фото) и стихи (это хорошие стихи, не мои :-)).<br>В настоящее время бот отключен.</p>
       </div>
     </section>
@@ -407,7 +532,7 @@
         <img src="images/chess_pgn_gif.jpg" alt="Chess PGN@GIF" />
       </div>
       <div class="section-content">
-        <h2>Chess PGN@GIF <span class="bot-status off">отключен</span></h2>
+        <h2>Chess PGN@GIF<span class="h2-badges"><span class="bot-status telegram">Telegram-bot</span><span class="bot-status off">отключен</span></span></h2>
         <p>Самый первый телеграм-бот я написал для шахматистов.<br>Он превращает текст шахматной партии в формате PGN в видеофайл (при этом в отличие от других подобных умел показывать и варианты с анализом).<br>В настоящее время бот отключен.</p>
       </div>
     </section>
